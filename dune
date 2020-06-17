@@ -1,3 +1,5 @@
 (executable
  (name main)
- (libraries base stdio core))
+ (libraries base stdio core)
+ (preprocess
+  (pps ppxlib.metaquot)))
