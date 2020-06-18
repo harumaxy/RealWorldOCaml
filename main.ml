@@ -1,31 +1,56 @@
-open Core
 open Base
+open Stdio
 
-type 'a with_line_num = { item : 'a; line_num : int }
-
-module Heartbeat = struct
-  type t = { session_id : string; time : Time_ns.t; status_message : string }
-end
-
-type client_info = {
-  addr : Unix.Inet_addr.t;
-  port : int;
-  user : string;
-  credentials : string;
-  last_heartbeat_time : Time_ns.t;
-}
-
-let register_heartbeat t hb = { t with last_heartbeat_time = hb.Heartbeat.time }
-
-module Logon = struct
-  type t = {
-    session_id : string;
-    time : Time_ns.t;
-    user : string;
-    credentials : string;
-  }
-  [@@deriving fields]
-end
+type basic_color =
+  | Black
+  | Red
+  | Green
+  | Yellow
+  | Blue
+  | Magenta
+  | Cyan
+  | White
 
 ;;
-Field.get Logon.Field.user
+[ Blue; Magenta; Cyan ]
+
+let basic_color_to_int = function
+  | Black -> 0
+  | Red -> 1
+  | Green -> 2
+  | Yellow -> 3
+  | Blue -> 4
+  | Magenta -> 5
+  | Cyan -> 6
+  | White -> 7
+
+;;
+List.map ~f:basic_color_to_int [ Blue; Magenta; Cyan ]
+
+let color_by_number number text =
+  Printf.sprintf "\027[38;5;%dm%s\027[0m" number text
+
+let blue = color_by_number (basic_color_to_int Blue) "Blue"
+
+type weight = Regular | Bold
+
+type color =
+  | Basic of basic_color * weight
+  | RGB of int * int * int
+  | Gray of int
+
+;;
+[ RGB (255, 0, 0); Basic (Green, Regular) ]
+
+type 'a expr =
+  | Base of 'a
+  | Const of bool
+  | And of 'a expr list
+  | Or of 'a expr list
+  | Not of 'a expr
+
+type mail_field = To | From | CC | Date | Subject
+
+type mail_field = To | From | CC | Date | Subject
+
+type mail_predicate = { field : mail_field; contains : string }
