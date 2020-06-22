@@ -50,7 +50,4 @@ type 'a expr =
   | Not of 'a expr
 
 type mail_field = To | From | CC | Date | Subject
-
-type mail_field = To | From | CC | Date | Subject
-
 type mail_predicate = { field : mail_field; contains : string }
