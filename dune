@@ -2,4 +2,4 @@
  (name main)
  (libraries base stdio core)
  (preprocess
-  (pps ppxlib.metaquot)))
+  (pps ppx_jane ppx_let)))
