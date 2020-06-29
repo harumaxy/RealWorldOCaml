@@ -1,5 +1,5 @@
 (executable
  (name main)
- (libraries core core_kernel ppx_sexp_conv async async_graphics)
+ (libraries core core_kernel base)
  (preprocess
-  (pps ppx_sexp_conv)))
+  (pps ppx_jane)))
