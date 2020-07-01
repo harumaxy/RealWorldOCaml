@@ -1,5 +1,5 @@
 (executable
  (name main)
- (libraries core core_kernel base)
+ (libraries core async core_kernel base textwrap uri yojson cohttp-async)
  (preprocess
   (pps ppx_jane)))
